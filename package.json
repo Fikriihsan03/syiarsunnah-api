@@ -1,0 +1,12 @@
+{
+  "name": "syiarsunnah-api",
+  "version": "1.0.0",
+  "description": "api for syiarsunnah",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "author": "Muhammad Fikri Ihsan",
+  "license": "ISC"
+}
