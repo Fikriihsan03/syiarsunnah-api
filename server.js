@@ -11,8 +11,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const blogForm = require("./routes/blogForm");
 const blogData = require("./routes/blogData");
+const loginForm = require("./routes/login");
 
 app.use(blogForm);
+app.use(loginForm);
 app.use(blogData);
 
 app.listen(3001, () => {

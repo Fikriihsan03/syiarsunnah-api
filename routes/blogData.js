@@ -6,8 +6,8 @@ const router = express.Router();
 //   res.render("index");
 // });
 router.post("/blogData", (req, res, next) => {
-  //   console.log(title);
-  //   console.log(inputFile);
-  res.json(req.body.content);
+  // console.log(title);
+  // console.log(inputFile);
+  // res.json(req.body.title);
 });
 module.exports = router;

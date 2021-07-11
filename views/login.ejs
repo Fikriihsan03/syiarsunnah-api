@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include('includes/head.ejs') %>
+  <body>
+    <div class="con-login animate__animated animate__lightSpeedInLeft">
+      <a href="../index.html" class="fa fa-times fa-2x"></a>
+
+      <h1
+        class="
+          animate__animated
+          animate__heartBeat
+          animate__repeat-2
+          animate__delay-2s
+        "
+      >
+        Log-in
+      </h1>
+
+      <div class="con-inputs">
+        <form method="POST" action="/login" id="signinform">
+          <div class="con-input">
+            <label for="username">Username</label>
+            <input
+              placeholder="username"
+              autocomplete="off"
+              id="username"
+              type="text"
+              name="username"
+            />
+          </div>
+
+          <div class="con-input">
+            <label for="password"> Password</label>
+            <input id="password" type="password" name="password" />
+            <div id="password-strength"></div>
+          </div>
+          <div class="button-sign-up">
+            <input type="submit" value="SignIn" class="btn-signup" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
