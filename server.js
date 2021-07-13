@@ -13,8 +13,8 @@ const blogForm = require("./routes/blogForm");
 const blogData = require("./routes/blogData");
 const loginForm = require("./routes/login");
 
+app.use(loginForm.router);
 app.use(blogForm);
-app.use(loginForm);
 app.use(blogData);
 
 app.listen(3001, () => {
