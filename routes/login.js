@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const loginData = [];
+const loginData = [null];
 router.get("/", (req, res, next) => {
   res.render("login");
   // login.ejs ada di folder views
@@ -9,7 +9,8 @@ router.get("/", (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   if (req.body.username === "sad" && req.body.password === "admin") {
-    loginData.push(req.body.username);
+    loginData.splice(0, 1, req.body.username);
+    // loginData.push(req.body.username);
     res.redirect("/blogForm");
   }
   // res.json("Failed");

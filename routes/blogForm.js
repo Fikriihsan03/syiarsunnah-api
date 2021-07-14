@@ -4,6 +4,10 @@ const loginData = require("./login");
 
 router.get("/blogForm", (req, res, next) => {
   const author = loginData.username;
+
+  if (author[0] === null) {
+    res.redirect("/");
+  }
   res.render("form", { authorName: author });
   // form.ejs ada di folder views
 });
