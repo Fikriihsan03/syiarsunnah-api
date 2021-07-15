@@ -3,9 +3,8 @@ const router = express.Router();
 const loginData = require("./login");
 
 router.get("/blogForm", (req, res, next) => {
-  const author = loginData.username;
-
-  if (author[0] === null) {
+  const author = loginData.data[0];
+  if (author === null) {
     res.redirect("/");
   }
   res.render("form", { authorName: author });

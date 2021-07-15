@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const db = require("../db");
+const bcrypt = require("bcrypt");
 
 const loginData = [null];
 router.get("/", (req, res, next) => {
@@ -8,11 +10,26 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-  if (req.body.username === "sad" && req.body.password === "admin") {
-    loginData.splice(0, 1, req.body.username);
-    // loginData.push(req.body.username);
-    res.redirect("/blogForm");
+  const { username, password } = req.body;
+  if (!username || !password) {
+    res.send("Mohon isi form login dengan benar");
   }
-  // res.json("Failed");
+  const getUser = "SELECT * FROM user WHERE username = ? ";
+  db.query(getUser, [username], function (error, result) {
+    // res.json(result);
+    if (result.length === 0) {
+      res.json("username anda salah");
+    } else {
+      const isValid = bcrypt.compareSync(password, result[0].password);
+      if (isValid) {
+        loginData.splice(0, 1, result[0].username);
+        // res.json(loginData);
+        return res.status(200).redirect("/blogForm");
+      } else {
+        res.json("failed");
+      }
+    }
+  });
+  // console.log(username, password);
 });
-module.exports = { router: router, username: loginData };
+module.exports = { router: router, data: loginData };
