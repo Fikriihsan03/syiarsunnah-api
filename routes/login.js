@@ -16,20 +16,15 @@ router.post("/", (req, res, next) => {
   }
   const getUser = "SELECT * FROM user WHERE username = ? ";
   db.query(getUser, [username], function (error, result) {
-    // res.json(result);
     if (result.length === 0) {
       res.json("username anda salah");
     } else {
       const isValid = bcrypt.compareSync(password, result[0].password);
       if (isValid) {
         loginData.splice(0, 1, result[0].username);
-        // res.json(loginData);
         return res.status(200).redirect("/blogForm");
-      } else {
-        res.json("failed");
       }
     }
   });
-  // console.log(username, password);
 });
 module.exports = { router: router, data: loginData };
