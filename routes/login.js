@@ -23,6 +23,8 @@ router.post("/", (req, res, next) => {
       if (isValid) {
         loginData.splice(0, 1, result[0].username);
         return res.status(200).redirect("/blogForm");
+      } else {
+        res.json("Password anda salah");
       }
     }
   });
