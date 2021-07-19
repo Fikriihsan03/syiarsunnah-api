@@ -17,7 +17,7 @@ router.post("/", (req, res, next) => {
   const getUser = "SELECT * FROM user WHERE username = ? ";
   db.query(getUser, [username], function (error, result) {
     if (result.length === 0) {
-      res.json("username anda salah");
+      return res.json("username anda salah");
     } else {
       const isValid = bcrypt.compareSync(password, result[0].password);
       if (isValid) {
