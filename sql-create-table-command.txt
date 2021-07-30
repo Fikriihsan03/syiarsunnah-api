@@ -1,0 +1,19 @@
+// --------------blog_data table--------------
+CREATE TABLE `blog_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `author` varchar(50) NOT NULL,
+  `image` mediumblob NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `sub_title` varchar(100) NOT NULL,
+  `content` varchar(8000) NOT NULL,
+  `category` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4
+//-----------------user table----------------------
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4
