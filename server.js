@@ -3,13 +3,10 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
 const cors = require("cors");
+const helmet = require("helmet");
 // app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-app.use(function (req, res, next) {
-  res.setHeader("Content-Security-Policy", "default-src 'self'");
-  return next();
-});
 
 app.set("view engine", "ejs");
 

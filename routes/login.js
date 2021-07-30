@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
 router.post("/", (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    res.send("Mohon isi form login dengan benar");
+    return res.send("Mohon isi form login dengan benar");
   }
   const getUser = "SELECT * FROM user WHERE username = ? ";
   db.query(getUser, [username], function (error, result) {
