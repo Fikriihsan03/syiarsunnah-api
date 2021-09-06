@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 const loginData = require("./login");
 
-router.get("/blogForm", (req, res, next) => {
-  const author = loginData.data[0];
+router.get("/adminPage", (req, res, next) => {
   const role = loginData.data[1];
-  if (author === undefined) {
-    return res.redirect("/");
+  console.log(role);
+  if (role !== "admin") {
+    return res.redirect("/blogForm");
   }
-  res.render("form", { authorName: author, role: role });
+  res.render("adminPage");
   // form.ejs ada di folder views
 });
 module.exports = router;

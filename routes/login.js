@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../db");
 const bcrypt = require("bcrypt");
 
-const loginData = [null];
+const loginData = [];
 router.get("/", (req, res, next) => {
   res.render("login");
   // login.ejs ada di folder views
@@ -21,7 +21,8 @@ router.post("/", (req, res, next) => {
     } else {
       const isValid = bcrypt.compareSync(password, result[0].password);
       if (isValid) {
-        loginData.splice(0, 1, result[0].username);
+        loginData.push(result[0].username);
+        loginData.push(result[0].role);
         return res.status(200).redirect("/blogForm");
       } else {
         res.json("Password anda salah");
