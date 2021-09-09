@@ -1,15 +1,6 @@
-const express = require("express");
-const router = express.Router();
-const db = require("../db");
-const bcrypt = require("bcrypt");
+let loginData = [null, null];
 
-const loginData = [];
-router.get("/", (req, res, next) => {
-  res.render("login");
-  // login.ejs ada di folder views
-});
-
-router.post("/", (req, res, next) => {
+const handleSignIn = (req, res, db, bcrypt) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.send("Mohon isi form login dengan benar");
@@ -21,13 +12,13 @@ router.post("/", (req, res, next) => {
     } else {
       const isValid = bcrypt.compareSync(password, result[0].password);
       if (isValid) {
-        loginData.push(result[0].username);
-        loginData.push(result[0].role);
+        loginData.splice(0, 1, result[0].username);
+        loginData.splice(1, 1, result[0].role);
         return res.status(200).redirect("/blogForm");
       } else {
-        res.json("Password anda salah");
+        return res.json("Password anda salah");
       }
     }
   });
-});
-module.exports = { router: router, data: loginData };
+};
+module.exports = { data: loginData, handleSignIn: handleSignIn };

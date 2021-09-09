@@ -1,9 +1,4 @@
-const express = require("express");
-const router = express.Router();
-const db = require("../db");
-const loginData = require("./login");
-
-router.get("/blogData/:category", (req, res, next) => {
+const getBlogDataWithCategory = (req, res, db) => {
   const { category } = req.params;
   const idQuery = Number(req.query.id);
   if (!idQuery) {
@@ -25,19 +20,19 @@ router.get("/blogData/:category", (req, res, next) => {
       }
     );
   }
-});
+};
 
-router.get("/blogData", (req, res, next) => {
+const getAllBlogData = (req, res, db) => {
   db.query("SELECT * FROM blog_data", function (err, result) {
     if (err) console.log("masalah ada di blogData method GET");
     return res.status(200).json(result);
   });
-});
+};
 
-router.post("/blogData", (req, res, next) => {
+const handlePostBlogData = (req, res, db, loginData) => {
   const { inputFile, title, subTitle, content, category } = req.body;
   const date = new Date().toISOString().slice(0, 10).split("-").join("-");
-  const author = loginData.data[0];
+  const author = loginData[0];
   const postBlogData = `INSERT INTO blog_data SET date = '${date}' ,author = '${author}' ,image = '${inputFile}' ,title='${title}' ,sub_title='${subTitle}' ,content='${content}',category='${category}'`;
   if (!author || !inputFile || !title || !subTitle || !content || !category) {
     return res.status(404).json("please fill all form correctly");
@@ -46,5 +41,9 @@ router.post("/blogData", (req, res, next) => {
     if (error) res.status(500).json("SQL bermasalah");
     return res.status(201).json("post blog data success");
   });
-});
-module.exports = router;
+};
+module.exports = {
+  getAllBlogData: getAllBlogData,
+  getBlogDataWithCategory: getBlogDataWithCategory,
+  handlePostBlogData: handlePostBlogData,
+};
