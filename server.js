@@ -1,15 +1,14 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const path = require("path");
-const app = express();
 const cors = require("cors");
 const db = require("./db");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 var MySQLStore = require("express-mysql-session")(session);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 var options = {
   host: "localhost",
@@ -49,7 +48,6 @@ const isAuth = (req,res,next)=>{
 
 app.get("/", (req, res, next) => {
   res.render("login");
-  // login.ejs ada di folder views
 });
 app.post("/", (req, res) => {
   loginForm.handleSignIn(req, res, db, bcrypt);
