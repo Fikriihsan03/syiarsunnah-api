@@ -5,7 +5,7 @@ const handleSignIn = (req, res, db, bcrypt) => {
   if (!username || !password) {
     return res.send("Mohon isi form login dengan benar");
   }
-  const getUser = "SELECT * FROM user WHERE username = ? ";
+  const getUser = "SELECT * FROM user WHERE username binary = ? ";
   db.query(getUser, [username], function (error, result) {
     if (result.length === 0) {
       return res.json("username anda salah");
