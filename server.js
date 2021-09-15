@@ -38,13 +38,13 @@ const blogData = require("./controllers/blogData");
 const adminPage = require("./controllers/adminPage");
 const loginForm = require("./controllers/login");
 
-const isAuth = (req,res,next)=>{
-  if(req.session.isAuth){
-    next()
-  }else{
-    return res.redirect("/")
+const isAuth = (req, res, next) => {
+  if (req.session.isAuth) {
+    next();
+  } else {
+    return res.redirect("/");
   }
-}
+};
 
 app.get("/", (req, res, next) => {
   res.render("login");
@@ -53,11 +53,15 @@ app.post("/", (req, res) => {
   loginForm.handleSignIn(req, res, db, bcrypt);
 });
 
-app.get("/blogForm",isAuth, (req, res) => {
+app.get("/blogForm", isAuth, (req, res) => {
   blogForm.getForm(req, res, loginForm.data);
 });
-app.use("/adminPage", (req, res) => {
+
+app.get("/adminPage", (req, res) => {
   adminPage.adminPageAuth(req, res, loginForm.data);
+});
+app.post("/adminPage", (req, res) => {
+  adminPage.handlePostAdminPage(req, res,db,bcrypt);
 });
 
 app.get("/blogData", (req, res) => {
@@ -69,12 +73,13 @@ app.get("/blogData/:category", (req, res) => {
 app.post("/blogData", (req, res) => {
   blogData.handlePostBlogData(req, res, db, loginForm.data);
 });
-app.get("/logout",(req,res)=>{
-  req.session.destroy((err)=>{
-    if(err)console.log(err);
-    res.redirect("/")
-  })
-})
+
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) console.log(err);
+    res.redirect("/");
+  });
+});
 
 app.listen(3001, () => {
   console.log("server.js running on port 3001");
