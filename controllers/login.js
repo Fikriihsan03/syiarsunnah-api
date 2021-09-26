@@ -13,8 +13,8 @@ const handleSignIn = (req, res, db, bcrypt) => {
     } else {
       const isValid = bcrypt.compareSync(password, result[0].password);
       if (isValid) {
-        loginData.splice(0, 1, result[0].username);
-        loginData.splice(1, 1, result[0].role);
+        req.session.author = result[0].username;
+        req.session.role =result[0].role;
         req.session.isAuth = true;
         return res.status(200).redirect("/blogForm");
       } else {

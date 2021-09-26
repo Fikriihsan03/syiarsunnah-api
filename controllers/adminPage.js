@@ -1,5 +1,5 @@
 const adminPageAuth = (req, res, loginData) => {
-  const role = loginData[1];
+  const role = req.session.role;
   if (role !== "admin") {
     return res.redirect("/blogForm");
   }
