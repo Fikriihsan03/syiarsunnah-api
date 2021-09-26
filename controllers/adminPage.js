@@ -5,6 +5,7 @@ const adminPageAuth = (req, res, loginData) => {
   }
   res.render("adminPage", { role: "admin" });
 };
+
 const handlePostAdminPage = (req, res, db, bcrypt) => {
   const { username, password, role } = req.body;
   if (!password || !username || !role) {
@@ -20,16 +21,17 @@ const handlePostAdminPage = (req, res, db, bcrypt) => {
     });
   }
 };
-const handleDeleteBlogData = (req,res,db) =>{
-  const {id} =req.body
-  const deleteQuery = `DELETE FROM blog_data WHERE blog_data.id = ${id}`
-  db.query(deleteQuery,function(err,result){
-    if(err) res.status(500).json("query bermasalah");
-    return res.status(200).json("Success to Delete blog Data")
-  })
-}
+
+const handleDeleteBlogData = (req, res, db) => {
+  const { id } = req.body;
+  const deleteQuery = `DELETE FROM blog_data WHERE blog_data.id = ${id}`;
+  db.query(deleteQuery, function (err, result) {
+    if (err) res.status(500).json("query bermasalah");
+    return res.status(200).json("Success to Delete blog Data");
+  });
+};
 module.exports = {
   adminPageAuth: adminPageAuth,
   handlePostAdminPage: handlePostAdminPage,
-  handleDeleteBlogData:handleDeleteBlogData
+  handleDeleteBlogData: handleDeleteBlogData,
 };

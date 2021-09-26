@@ -15,7 +15,7 @@ const handleSignIn = (req, res, db, bcrypt) => {
       if (isValid) {
         loginData.splice(0, 1, result[0].username);
         loginData.splice(1, 1, result[0].role);
-        req.session.isAuth = true
+        req.session.isAuth = true;
         return res.status(200).redirect("/blogForm");
       } else {
         return res.json("Password anda salah");

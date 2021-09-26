@@ -52,11 +52,11 @@ app.get("/", (req, res, next) => {
 app.post("/", (req, res) => {
   loginForm.handleSignIn(req, res, db, bcrypt);
 });
-
+//-------blogForm route------------
 app.get("/blogForm", isAuth, (req, res) => {
   blogForm.getForm(req, res, loginForm.data);
 });
-
+//------------adminPage route
 app.get("/adminPage", (req, res) => {
   adminPage.adminPageAuth(req, res, loginForm.data);
 });
@@ -66,6 +66,7 @@ app.post("/adminPage", (req, res) => {
 app.delete("/adminPage", (req, res) => {
   adminPage.handleDeleteBlogData(req, res, db);
 });
+//----------blogData route---------
 app.get("/blogData", (req, res) => {
   blogData.getAllBlogData(req, res, db);
 });

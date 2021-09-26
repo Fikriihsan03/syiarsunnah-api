@@ -42,6 +42,7 @@ const handlePostBlogData = (req, res, db, loginData) => {
     return res.status(201).json("post blog data success");
   });
 };
+
 module.exports = {
   getAllBlogData: getAllBlogData,
   getBlogDataWithCategory: getBlogDataWithCategory,
