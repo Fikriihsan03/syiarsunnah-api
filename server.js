@@ -61,9 +61,11 @@ app.get("/adminPage", (req, res) => {
   adminPage.adminPageAuth(req, res, loginForm.data);
 });
 app.post("/adminPage", (req, res) => {
-  adminPage.handlePostAdminPage(req, res,db,bcrypt);
+  adminPage.handlePostAdminPage(req, res, db, bcrypt);
 });
-
+app.delete("/adminPage", (req, res) => {
+  adminPage.handleDeleteBlogData(req, res, db);
+});
 app.get("/blogData", (req, res) => {
   blogData.getAllBlogData(req, res, db);
 });
