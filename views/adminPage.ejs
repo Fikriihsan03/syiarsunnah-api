@@ -107,6 +107,9 @@
 
       const searchBlogDataByName = async () => {
         let searchField = document.getElementById("searchBlogData");
+
+        // Mengambil seluruh data kemudian mem-filternya
+
         const response = await fetch("http://localhost:3001/blogData")
           .then((response) => response.json())
           .then((data) =>
@@ -134,9 +137,11 @@
            </li>
       `;
             });
+            // render blogDataList dengan innerHtml
             document.getElementById("blogDataList").innerHTML = blogDataList;
+
+            // dari sini, fungsi delete dimulai
             var close = document.getElementsByClassName("badge");
-            console.log(close.length);
             if (blogDataList != "") {
               for (var i = 0; i < close.length; i++) {
                 close[i].onclick = function () {
