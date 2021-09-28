@@ -1,122 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%-include('includes/head.ejs') %>
-      <h1>Welcome, let's make a blogPost</h1>
-      <form method="POST" action="/blogData" id="usrform">
-        <div class="form-group row" style="margin-top: 50px">
-          <label for="author" class="col-sm-2 col-form-label">AUTHOR</label>
-          <div class="col-sm-10">
-            <h3><%= authorName%></h3>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputFile" class="col-sm-2 col-form-label">Image</label>
-          <div class="col-sm-10">
-            <small>Harus dalam file <b>.jpg</b></small>
-            <input
-              type="file"
-              class="form-control-file"
-              name="inputFile"
-              id="inputFile"
-            />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="title" class="col-sm-2 col-form-label">Judul</label>
-          <div class="col-sm-10">
-            <input
-              type="text"
-              class="form-control"
-              name="title"
-              id="title"
-              autocomplete="off"
-              placeholder="..."
-            />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="subTitle" class="col-sm-2 col-form-label"
-            >Sub judul</label
-          >
-          <div class="col-sm-10">
-            <input
-              type="text"
-              class="form-control"
-              id="subTitle"
-              name="subTitle"
-              maxlength="100"
-              autocomplete="off"
-              placeholder="..."
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="content">Content</label>
-          <textarea
-            id="content"
-            name="content"
-            class="editable"
-            style="
+<%-include('includes/head.ejs') %>
+  <h1>Welcome, let's make a blogPost</h1>
+  <form method="POST" action="/blogData" id="usrform" onsubmit="submitForm(event)">
+    <!--input file blob-->
+    <input type="hidden" id="inputFile" name="inputFile" />
+
+    <div class="form-group row" style="margin-top: 50px">
+      <label for="author" class="col-sm-2 col-form-label">AUTHOR</label>
+      <div class="col-sm-10">
+        <h3>
+          <%= authorName%>
+        </h3>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputFile" class="col-sm-2 col-form-label">Image</label>
+      <div class="col-sm-10">
+        <small>Harus dalam file <b>.jpg</b></small>
+        <input type="file" class="form-control-file" onchange="onFileChange(this)" />
+        <img id="displayImage" src="" class="img-thumbnail">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="title" class="col-sm-2 col-form-label">Judul</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="title" id="title" autocomplete="off" placeholder="..." />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="subTitle" class="col-sm-2 col-form-label">Sub judul</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="subTitle" name="subTitle" maxlength="100" autocomplete="off"
+          placeholder="..." />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea id="content" name="content" class="editable" style="
               border: 1px solid #ced4da;
               padding: 6px 12px;
               border-radius: 5px;
-            "
-            form="usrform"
-          ></textarea>
-        </div>
-        <div class="form-group">
-          <label for="category">Category : </label>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="category"
-              id="inlineRadio1"
-              value="aqidah"
-            />
-            <label class="form-check-label" for="inlineRadio1">Aqidah</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="category"
-              id="inlineRadio2"
-              value="fiqih"
-            />
-            <label class="form-check-label" for="inlineRadio2">Fiqih</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="category"
-              id="inlineRadio3"
-              value="nasihat"
-            />
-            <label class="form-check-label" for="inlineRadio3">Nasihat</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="category"
-              id="inlineRadio4"
-              value="manhaj"
-            />
-            <label class="form-check-label" for="inlineRadio4">Manhaj</label>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </div>
-      </form>
+            " form="usrform"></textarea>
     </div>
-    <script>
-      var editor = new MediumEditor(".editable");
-    </script>
+    <div class="form-group">
+      <label for="category">Category : </label>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="category" id="inlineRadio1" value="aqidah" />
+        <label class="form-check-label" for="inlineRadio1">Aqidah</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="category" id="inlineRadio2" value="fiqih" />
+        <label class="form-check-label" for="inlineRadio2">Fiqih</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="category" id="inlineRadio3" value="nasihat" />
+        <label class="form-check-label" for="inlineRadio3">Nasihat</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="category" id="inlineRadio4" value="manhaj" />
+        <label class="form-check-label" for="inlineRadio4">Manhaj</label>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+  </div>
+  <script>
+    var editor = new MediumEditor(".editable");
+
+    onFileChange = function (e) {
+      getBase64(e.files[0]).then((blob) => {
+        //show image
+        document.querySelector("#displayImage").src = blob;
+        //put on form inputFile element
+        document.querySelector("#inputFile").value = blob;
+      })
+    }
+    function getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    }
+
+    submitForm = function (e) {
+      e.preventDefault();
+      var fm = new FormData(document.querySelector("#usrform"));
+      let formdata = new FormData()
+
+      for (var [key, value] of fm.entries()) {
+        formdata.append(key, value);
+      }
+      let dataToSubmit = JSON.stringify(Object.fromEntries(formdata));
+
+      fetch('/blogData', {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: 'POST',
+        body: dataToSubmit
+      }).then((response) => {
+
+        if (response.status == 201) {
+          alert("Data tersimpan")
+        }else{
+          alert(response.status)
+          console.log(response)
+        }
+      });
+
+
+    }
+
+
+  </script>
   </body>
+
 </html>

@@ -5,8 +5,10 @@ const db = require("./db");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 var MySQLStore = require("express-mysql-session")(session);
+// const fileUpload = require('express-fileupload');
 
 const app = express();
+// app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
