@@ -2,7 +2,7 @@
 <html lang="en">
   <%-include('includes/head.ejs') %>
       <h1>Welcome, let's make a blogPost</h1>
-      <form method="POST" action="/blogData" id="usrform">
+      <form method="POST" action="/blogData" id="usrform" enctype="multipart/form-data">
         <div class="form-group row" style="margin-top: 50px">
           <label for="author" class="col-sm-2 col-form-label">AUTHOR</label>
           <div class="col-sm-10">

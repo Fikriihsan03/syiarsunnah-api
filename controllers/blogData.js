@@ -31,6 +31,8 @@ const getAllBlogData = (req, res, db) => {
 
 const handlePostBlogData = (req, res, db, loginData) => {
   const { inputFile, title, subTitle, content, category } = req.body;
+  console.log(req.body)
+  console.log(req.files)
   const date = new Date().toISOString().slice(0, 10).split("-").join("-");
   const author = loginData[0];
   const postBlogData = `INSERT INTO blog_data SET date = '${date}' ,author = '${author}' ,image = '${inputFile}' ,title='${title}' ,sub_title='${subTitle}' ,content='${content}',category='${category}'`;
