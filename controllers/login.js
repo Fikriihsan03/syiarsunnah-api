@@ -7,7 +7,7 @@ const handleSignIn = (req, res, db, bcrypt) => {
   }
   const getUser = "SELECT * FROM user WHERE BINARY username = ? ";
   db.query(getUser, [username], function (error, result) {
-    // console.log(username,password,result)
+
     if (result.length === 0) {
       return res.json("username anda salah");
     } else {

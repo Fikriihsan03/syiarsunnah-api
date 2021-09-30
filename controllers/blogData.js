@@ -31,8 +31,7 @@ const getAllBlogData = (req, res, db) => {
 
 const handlePostBlogData = (req, res, db, loginData) => {
   const { inputFile, title, subTitle, content, category } = req.body;
-  console.log(req.body)
-  // console.log(req.files)
+
 
   const date = new Date().toISOString().slice(0, 10).split("-").join("-");
   const author = req.session.author;;
