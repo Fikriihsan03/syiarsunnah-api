@@ -16,14 +16,14 @@ const getBlogDataWithCategory = (req, res, db) => {
       function (err, result) {
         if (err)
           console.log("masalah ada di blogData dengan req query id method GET");
-        res.status(500).json(result);
+        return res.status(500).json(result);
       }
     );
   }
 };
 
 const getAllBlogData = (req, res, db) => {
-  db.query("SELECT * FROM blog_data", function (err, result) {
+  db.query("SELECT * FROM blog_data ORDER BY date DESC", function (err, result) {
     if (err) console.log("masalah ada di blogData method GET");
     return res.status(200).json(result);
   });
