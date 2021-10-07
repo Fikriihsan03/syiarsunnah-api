@@ -13,11 +13,10 @@ app.use(express.urlencoded({limit: '25mb', extended: true}));
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 var options = {
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "fimarasa",
-  database: "syiarsunnah",
+  host: "sql6.freemysqlhosting.net",
+  user: "sql6442573",
+  password: "LvXSCng6lg",
+  database: "sql6442573",
 };
 
 var sessionStore = new MySQLStore(options);
@@ -30,6 +29,10 @@ app.use(
     saveUninitialized: false,
   })
 );
+db.connect(function (err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 
 app.set("view engine", "ejs");
 
