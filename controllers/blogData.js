@@ -16,14 +16,14 @@ const getBlogDataWithCategory = (req, res, db) => {
       function (err, result) {
         if (err)
           console.log("masalah ada di blogData dengan req query id method GET");
-        res.status(500).json(result);
+        return res.status(500).json(result);
       }
     );
   }
 };
 
 const getAllBlogData = (req, res, db) => {
-  db.query("SELECT * FROM blog_data", function (err, result) {
+  db.query("SELECT * FROM blog_data ORDER BY date DESC", function (err, result) {
     if (err) console.log("masalah ada di blogData method GET");
     return res.status(200).json(result);
   });
@@ -31,18 +31,18 @@ const getAllBlogData = (req, res, db) => {
 
 const handlePostBlogData = (req, res, db, loginData) => {
   const { inputFile, title, subTitle, content, category } = req.body;
-  console.log(req.body)
-  console.log(req.files)
   const date = new Date().toISOString().slice(0, 10).split("-").join("-");
-  const author = loginData[0];
+  const author = req.session.author;;
   const postBlogData = `INSERT INTO blog_data SET date = '${date}' ,author = '${author}' ,image = '${inputFile}' ,title='${title}' ,sub_title='${subTitle}' ,content='${content}',category='${category}'`;
   if (!author || !inputFile || !title || !subTitle || !content || !category) {
-    return res.status(404).json("please fill all form correctly");
+     return res.status(404).json("please fill all form correctly");
+  }else{
+
+    db.query(postBlogData, function (error, result) {
+      if (error) res.status(500).json("SQL bermasalah");
+      return res.status(201).json("post blog data success");
+    });
   }
-  db.query(postBlogData, function (error, result) {
-    if (error) res.status(500).json("SQL bermasalah");
-    return res.status(201).json("post blog data success");
-  });
 };
 
 module.exports = {
